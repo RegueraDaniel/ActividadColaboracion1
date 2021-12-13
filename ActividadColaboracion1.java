@@ -49,21 +49,9 @@ public class Poligonos {
         return ((medir * medir) * ((Math.sqrt(3) / 4)));
     }
 
-    public static double areaCuadrado(double medir) {
-        /**
-         * Inicio codificación: LU1SBL4N - 3/12/2021
-         */
-        return (medir * medir);
-    }
-
     public static double areaPentagono(double medir) {
 
         return (1.72 * (medir * medir));
-    }
-
-    public static double areaHexagono(double medir) {
-
-        return ((3 * Math.sqrt(3) * medir * medir) / 2);
     }
 
     /**
@@ -79,20 +67,25 @@ public class Poligonos {
 
         //declaracion de variables
         int poligono;
-        double lado, base, radio, area;
-        String sol_perimetro, sol_area;
+        double lado, base, radio, area, altura = 0;
+        String sol_perimetro, sol_volumen;
         sol_perimetro = "El perímetro es ";
-        sol_area = "Su area es ";
+        sol_volumen = "Su volumen es ";
 
         //constantes            
         final double DIV_APOT_PENT = 1.453, DIV_APOT_HEX = 1.15, PI = Math.PI;
-        final String CABECERA_MENU, OPCIONES, SALIR, PEDIR_LADO, PEDIR_BASE, PEDIR_RADIO, ERROR, ADIOS;
+        final String CABECERA_MENU, OPCIONES, SALIR, PEDIR_LADO, PEDIR_BASE, PEDIR_RADIO, ERROR, ADIOS, PEDIR_ALTURA;
         CABECERA_MENU = "Indique el polígono regular del cual desea calcular area y perímetro:";
-        OPCIONES = "\n1. Círculo\n2. Rectángulo\n3. Triángulo\n4. Cuadrado\n5. Pentágono\n6. Hexágono";
+        OPCIONES = "\n1. Círculo\n2. Rectángulo\n3. Triángulo \n5. Pentágono";
         SALIR = "\nO. pulse 0 para salir\n";
         PEDIR_RADIO = "Introduzca su radio:";
         PEDIR_BASE = "Introduzca la base";
         PEDIR_LADO = "¿Cuánto mide el lado?";
+
+        /*Principio de codificacion: LU1SBL4N - 13/12/2021*/
+        PEDIR_ALTURA = "¿Cuánto mide la altura?";
+
+        /*Fin de codificacion: LU1SBL4N - 13/12/2021*/
         ERROR = "Error en la introducción";
         ADIOS = "¡Adios!";
 
@@ -101,13 +94,22 @@ public class Poligonos {
             System.out.println(CABECERA_MENU + OPCIONES + SALIR);
             poligono = teclado.nextInt();
 
+            /*Principio de codificacion: LU1SBL4N - 13/12/2021*/
+            do {
+
+                System.out.println(PEDIR_ALTURA);
+                altura = teclado.nextDouble();
+
+            } while (altura <= 0);
+
+            /*Fin de codificacion: LU1SBL4N - 13/12/2021*/
             switch (poligono) {
                 case 1: //circulo
                     System.out.println(PEDIR_RADIO);
                     radio = teclado.nextDouble();
 
                     System.out.println(sol_perimetro + perimetroCirculo(radio));
-                    System.out.println(sol_area + areaCirculo(radio) + "\n");
+                    System.out.println(sol_volumen + areaCirculo(radio) * altura + "\n");
 
                     break;
                 case 2: //rectangulo
@@ -118,7 +120,7 @@ public class Poligonos {
                     lado = teclado.nextDouble();
 
                     System.out.println(sol_perimetro + perimetroRectangulo(base, lado));
-                    System.out.println(sol_area + areaRectangulo(base, lado) + "\n");
+                    System.out.println(sol_volumen + areaRectangulo(base, lado) * altura + "\n");
                     break;
 
                 case 3: //triangulo
@@ -127,17 +129,7 @@ public class Poligonos {
                     System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
 
                     area = areaTriangulo(lado);
-                    System.out.println(sol_area + area + "\n");
-                    break;
-
-                case 4:
-                    /*Inicio codificación: LU1SBL4N - 3/12/2021*/
-                    System.out.println(PEDIR_LADO);
-                    lado = teclado.nextDouble();
-                    System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
-                    area = areaCuadrado(lado);
-                    System.out.println(sol_area + area + "\n");
-
+                    System.out.println(sol_volumen + area *altura+ "\n");
                     break;
 
                 case 5: //pentagono  
@@ -146,20 +138,10 @@ public class Poligonos {
                     lado = teclado.nextDouble();
                     System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
                     area = areaPentagono(lado);
-                    System.out.println(sol_area + area + "\n");
+                    System.out.println(sol_volumen + area * altura + "\n");
 
                     break;
 
-                case 6: //hexagono
-
-                    System.out.println(PEDIR_LADO);
-                    lado = teclado.nextDouble();
-                    System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
-                    area = areaHexagono(lado);
-                    System.out.println(sol_area + area + "\n");
-
-                    break;
-                /*Fin de codificacion: LU1SBL4N - 3/12/2021*/
                 default:
                     if (poligono != 0) {
                         System.out.println(ERROR);
@@ -171,3 +153,6 @@ public class Poligonos {
     }
 
 }
+
+
+
