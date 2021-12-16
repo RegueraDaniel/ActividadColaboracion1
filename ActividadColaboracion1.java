@@ -7,17 +7,8 @@ package poligonos;
 
 import java.util.Scanner;
 
-/**
+ /*
  *
- *
- *
- *
- *
- * import java.util.Scanner;
- *
- * /
- *
- **
  * @author Daniel Reguera Bazan, Luis Miguel Blanco Segura
  *
  */
@@ -67,13 +58,17 @@ public class Poligonos {
 
         //declaracion de variables
         int poligono;
-        double lado, base, radio, area, altura = 0;
-        String sol_perimetro, sol_volumen;
-        sol_perimetro = "El perímetro es ";
+        double lado, base, radio, area, altura = 0, superficie;
+        String sol_area, sol_volumen;
+        
+        /*Principio de codificacion: DRB - 16/12/2021*/
+        sol_area = "El area es ";
+        /*Fin de codificacion: DRB - 16/12/2021*/
+        
         sol_volumen = "Su volumen es ";
 
         //constantes            
-        final double DIV_APOT_PENT = 1.453, DIV_APOT_HEX = 1.15, PI = Math.PI;
+        
         final String CABECERA_MENU, OPCIONES, SALIR, PEDIR_LADO, PEDIR_BASE, PEDIR_RADIO, ERROR, ADIOS, PEDIR_ALTURA;
         CABECERA_MENU = "Indique el polígono regular del cual desea calcular area y perímetro:";
         OPCIONES = "\n1. Círculo\n2. Rectángulo\n3. Triángulo \n5. Pentágono";
@@ -84,8 +79,8 @@ public class Poligonos {
 
         /*Principio de codificacion: LU1SBL4N - 13/12/2021*/
         PEDIR_ALTURA = "¿Cuánto mide la altura?";
-
         /*Fin de codificacion: LU1SBL4N - 13/12/2021*/
+        
         ERROR = "Error en la introducción";
         ADIOS = "¡Adios!";
 
@@ -107,8 +102,8 @@ public class Poligonos {
                 case 1: //circulo
                     System.out.println(PEDIR_RADIO);
                     radio = teclado.nextDouble();
-
-                    System.out.println(sol_perimetro + perimetroCirculo(radio));
+                    
+                    System.out.println(sol_area + (areaCirculo(radio)*2+perimetroCirculo(radio)*altura));
                     System.out.println(sol_volumen + areaCirculo(radio) * altura + "\n");
 
                     break;
@@ -118,17 +113,26 @@ public class Poligonos {
 
                     System.out.println(PEDIR_LADO);
                     lado = teclado.nextDouble();
-
-                    System.out.println(sol_perimetro + perimetroRectangulo(base, lado));
+                    
+                    /*Principio de codificacion: DRB - 16/12/2021*/
+                    area=areaRectangulo(base, lado)*2+perimetroRectangulo(base, lado)*altura;
+                    System.out.println(sol_area + area);
+                    /*Fin de codificacion: DRB - 16/12/2021*/
+                    
                     System.out.println(sol_volumen + areaRectangulo(base, lado) * altura + "\n");
                     break;
 
                 case 3: //triangulo
                     System.out.println(PEDIR_LADO);
                     lado = teclado.nextDouble();
-                    System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
-
+                    
                     area = areaTriangulo(lado);
+                    
+                    /*Principio de codificacion: DRB - 16/12/2021*/
+                    superficie=areaTriangulo(lado)*2+perimetroPoligono(poligono, lado)*altura;
+                    System.out.println(sol_area + superficie);
+                    /*Fin de codificacion: DRB - 16/12/2021*/
+                    
                     System.out.println(sol_volumen + area *altura+ "\n");
                     break;
 
@@ -136,8 +140,14 @@ public class Poligonos {
 
                     System.out.println(PEDIR_LADO);
                     lado = teclado.nextDouble();
-                    System.out.println(sol_perimetro + perimetroPoligono(poligono, lado));
+                    
                     area = areaPentagono(lado);
+                    
+                    /*Principio de codificacion: DRB - 16/12/2021*/
+                    superficie=areaPentagono(lado)*2+perimetroPoligono(poligono, lado)*altura;   
+                    System.out.println(sol_area + superficie);
+                    /*Fin de codificacion: DRB - 16/12/2021*/
+                    
                     System.out.println(sol_volumen + area * altura + "\n");
 
                     break;
@@ -151,6 +161,7 @@ public class Poligonos {
             }
         } while (poligono != 0);
     }
+}
 
 }
 
